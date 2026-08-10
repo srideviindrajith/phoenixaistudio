@@ -1,0 +1,29 @@
+[
+  {
+    "id": "EXP-7281",
+    "date": "2026-07-12",
+    "type": "Tailored Resume Document",
+    "format": "PDF",
+    "status": "Exported",
+    "fileSize": "360 KB",
+    "settings": "Compression: Medium, Quality: High"
+  },
+  {
+    "id": "EXP-6192",
+    "date": "2026-07-11",
+    "type": "Interactive Portfolio System",
+    "format": "JSON",
+    "status": "Downloaded",
+    "fileSize": "2.4 KB",
+    "settings": "Pretty Print: True, Schema: 2.0"
+  },
+  {
+    "id": "EXP-5102",
+    "date": "2026-07-10",
+    "type": "LinkedIn Bio Optimization",
+    "format": "TXT",
+    "status": "Exported",
+    "fileSize": "4.8 KB",
+    "settings": "Encoding: UTF-8, Line Ending: LF"
+  }
+]

@@ -1,0 +1,56 @@
+<div class="portfolio-container" style="font-family: 'Inter', sans-serif; padding: 16px; color: #f4f4f5; background: #08080a; height: 100%; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+  <!-- Cyber overlay border -->
+  <div style="position: absolute; inset: 4px; border: 1px solid rgba(249,115,22,0.15); pointer-events: none;"></div>
+  
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 8px; z-index: 10;">
+    <!-- Portfolio Header -->
+    <div style="border-bottom: 2px solid #f97316; padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span style="font-size: 6px; font-weight: 800; text-transform: uppercase; color: #f97316; letter-spacing: 0.15em;">NEON CYBER SYSTEM</span>
+        <h3 style="font-size: 14px; font-weight: 800; margin: 0; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em;">{{portfolioName}}</h3>
+        <p style="font-size: 9px; margin: 2px 0 0 0; color: #a1a1aa;">{{portfolioCategory}}</p>
+      </div>
+      <div style="padding: 4px 8px; border: 1px solid #f97316; background: rgba(249,115,22,0.1); color: #f97316; font-size: 8px; font-weight: 800; text-transform: uppercase;">
+        {{colorTheme}}
+      </div>
+    </div>
+
+    <!-- Bio Card -->
+    <div style="padding: 8px; border: 1px dashed rgba(249,115,22,0.3); background: rgba(255,122,0,0.02);">
+      <span style="font-size: 7px; font-weight: 800; color: #f97316; text-transform: uppercase; display: block; margin-bottom: 2px;">CYBERNETIC MATRIX BIO</span>
+      <p style="font-size: 8px; line-height: 1.3; color: #e4e4e7; margin: 0;">{{bio}}</p>
+    </div>
+
+    <!-- Active Sections layout -->
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <h4 style="font-size: 8px; font-weight: 800; color: #f97316; text-transform: uppercase; margin: 0;">Schematic Modules</h4>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+        <div style="padding: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.04);">
+          <span style="font-size: 7px; font-weight: 800; color: #ffffff; display: block; text-transform: uppercase;">Engine Model</span>
+          <span style="font-size: 7px; color: #f97316;">{{portfolioTemplate}}</span>
+        </div>
+        <div style="padding: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.04);">
+          <span style="font-size: 7px; font-weight: 800; color: #ffffff; display: block; text-transform: uppercase;">System Clusters</span>
+          <span style="font-size: 7px; color: #f97316;">{{sections}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resources -->
+    <div>
+      <h4 style="font-size: 8px; font-weight: 800; color: #f97316; text-transform: uppercase; margin: 0 0 4px 0;">Resource Links</h4>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 7px; color: #a1a1aa;">
+        <p style="margin:0;">🌐 Website: {{website}}</p>
+        <p style="margin:0;">🐱 GitHub: {{github}}</p>
+        <p style="margin:0;">🎨 Behance: {{behance}}</p>
+        <p style="margin:0;">🏀 Dribbble: {{dribbble}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="border-top: 1px solid rgba(249,115,22,0.2); padding-top: 4px; display: flex; justify-content: space-between; font-size: 7px; color: #7c2d12; text-transform: uppercase; font-weight: 800; z-index: 10;">
+    <span>Neon Cyber Design Spec</span>
+    <span>Page 1 of 1</span>
+  </div>
+</div>

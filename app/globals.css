@@ -1,0 +1,522 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 100%;
+    --card: 240 8% 5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 8% 5%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 25 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 23 100% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 5% 12%;
+    --muted-foreground: 240 5% 64%;
+    --accent: 24 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 100% / 0.06;
+    --input: 0 0% 100% / 0.08;
+    --ring: 25 100% 50%;
+    --radius: 0.875rem;
+
+    --phoenix-orange: #FF6A00;
+    --phoenix-orange-dark: #CC4F00;
+    --phoenix-orange-glow: #FF8A33;
+    --phoenix-bg: #050505;
+    --phoenix-card: #0B0B0D;
+    --phoenix-glass: rgba(15, 15, 18, 0.65);
+    --phoenix-border: rgba(255, 255, 255, 0.06);
+    --phoenix-text: #FFFFFF;
+    --phoenix-text-secondary: #A1A1AA;
+    --phoenix-text-muted: #71717A;
+    --phoenix-success: #10B981;
+    --phoenix-danger: #EF4444;
+    --phoenix-warning: #F59E0B;
+    --phoenix-info: #3B82F6;
+
+    --font-sans: "Satoshi", "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-heading: "Space Grotesk", "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--phoenix-bg);
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--phoenix-text);
+    background:
+      radial-gradient(circle at top left, rgba(255, 106, 0, 0.15), transparent 35%),
+      radial-gradient(circle at bottom right, rgba(255, 80, 0, 0.08), transparent 30%),
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      #050505;
+    background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px, 100% 100%;
+    background-attachment: fixed;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  body::before {
+    opacity: 0.38;
+    background-image:
+      radial-gradient(circle at 18% 20%, rgba(255, 138, 51, 0.16) 0 1px, transparent 1px),
+      radial-gradient(circle at 82% 70%, rgba(255, 106, 0, 0.12) 0 1px, transparent 1px),
+      radial-gradient(circle at 40% 88%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px);
+    background-size: 180px 180px, 240px 240px, 320px 320px;
+    animation: phoenixParticles 28s linear infinite;
+  }
+
+  body::after {
+    opacity: 0.34;
+    filter: blur(34px);
+    background:
+      radial-gradient(ellipse at 28% 24%, rgba(255, 106, 0, 0.11), transparent 34%),
+      radial-gradient(ellipse at 76% 82%, rgba(204, 79, 0, 0.10), transparent 32%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.025), transparent 46%);
+    animation: phoenixSmoke 18s ease-in-out infinite alternate;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: 0;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: rgba(255, 106, 0, 0.34);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .phoenix-shell {
+    @apply relative min-h-screen overflow-hidden bg-transparent text-white;
+  }
+
+  .phoenix-shell::before {
+    content: "";
+    @apply pointer-events-none fixed inset-0 -z-10;
+    background:
+      radial-gradient(circle at top left, rgba(255, 106, 0, 0.15), transparent 35%),
+      radial-gradient(circle at bottom right, rgba(255, 80, 0, 0.08), transparent 30%),
+      #050505;
+  }
+
+  .glass {
+    background: var(--phoenix-glass);
+    border: 1px solid var(--phoenix-border);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .glass-strong,
+  .glass-card,
+  .phoenix-panel {
+    background: rgba(11, 11, 13, 0.86);
+    border: 1px solid var(--phoenix-border);
+    backdrop-filter: blur(26px);
+    -webkit-backdrop-filter: blur(26px);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .phoenix-card,
+  .card-phoenix,
+  .card-phoenix-simple {
+    @apply relative overflow-hidden rounded-[20px] p-6 transition-all duration-300;
+    background: rgba(11, 11, 13, 0.86);
+    border: 1px solid var(--phoenix-border);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .phoenix-card::before,
+  .card-phoenix::before,
+  .card-phoenix-simple::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      linear-gradient(135deg, rgba(255, 106, 0, 0.16), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 28%);
+    transition: opacity 250ms ease;
+  }
+
+  .phoenix-card:hover,
+  .card-phoenix:hover,
+  .card-phoenix-simple:hover,
+  .glass-hover:hover {
+    border-color: rgba(255, 106, 0, 0.32);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.34), 0 0 42px rgba(255, 106, 0, 0.16);
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .phoenix-card:hover::before,
+  .card-phoenix:hover::before,
+  .card-phoenix-simple:hover::before {
+    opacity: 1;
+  }
+
+  .phoenix-button,
+  .btn-fire {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all duration-300 disabled:pointer-events-none disabled:opacity-60;
+    background: linear-gradient(135deg, #FF6A00 0%, #CC4F00 100%);
+    box-shadow: 0 12px 34px rgba(255, 106, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .phoenix-button::before,
+  .btn-fire::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-110%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    transition: transform 520ms ease;
+  }
+
+  .phoenix-button:hover,
+  .btn-fire:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 18px 48px rgba(255, 106, 0, 0.36), 0 0 62px rgba(255, 106, 0, 0.18);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .phoenix-button:hover::before,
+  .btn-fire:hover::before {
+    transform: translateX(110%);
+  }
+
+  .phoenix-button:active,
+  .btn-fire:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  .phoenix-button-secondary,
+  .btn-fire-outline {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition-all duration-300;
+    color: #FF8A33;
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 106, 0, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .phoenix-button-secondary:hover,
+  .btn-fire-outline:hover {
+    color: #fff;
+    background: rgba(255, 106, 0, 0.12);
+    border-color: rgba(255, 106, 0, 0.55);
+    box-shadow: 0 14px 38px rgba(255, 106, 0, 0.18);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .phoenix-input,
+  .input-phoenix {
+    @apply w-full rounded-[14px] px-4 py-3 text-sm text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60;
+    background: rgba(5, 5, 5, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .phoenix-input::placeholder,
+  .input-phoenix::placeholder {
+    color: var(--phoenix-text-muted);
+  }
+
+  .phoenix-input:focus,
+  .input-phoenix:focus {
+    outline: none;
+    border-color: rgba(255, 106, 0, 0.72);
+    box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.12), 0 0 32px rgba(255, 106, 0, 0.10);
+  }
+
+  .label-phoenix,
+  .phoenix-label {
+    @apply mb-2 block text-xs font-medium uppercase;
+    color: var(--phoenix-text-secondary);
+  }
+
+  .badge-phoenix {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium;
+    color: #FF8A33;
+    background: rgba(255, 106, 0, 0.10);
+    border: 1px solid rgba(255, 106, 0, 0.22);
+    box-shadow: 0 0 24px rgba(255, 106, 0, 0.10);
+  }
+
+  .phoenix-icon-box {
+    @apply flex shrink-0 items-center justify-center rounded-xl;
+    background: linear-gradient(135deg, rgba(255, 106, 0, 0.18), rgba(204, 79, 0, 0.08));
+    border: 1px solid rgba(255, 106, 0, 0.22);
+    color: #FF8A33;
+  }
+
+  .gradient-text,
+  .fire-text,
+  .text-gradient-animated {
+    background: linear-gradient(135deg, #FF6A00 0%, #FF8A33 48%, #CC4F00 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 7s ease infinite;
+  }
+
+  .fire-border {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(#050505, #050505) padding-box,
+      linear-gradient(135deg, #FF6A00, #CC4F00) border-box;
+  }
+
+  .fire-glow {
+    box-shadow: 0 0 30px rgba(255, 106, 0, 0.24), 0 0 70px rgba(204, 79, 0, 0.13);
+  }
+
+  .fire-glow-intense {
+    box-shadow: 0 0 42px rgba(255, 106, 0, 0.38), 0 0 92px rgba(204, 79, 0, 0.22);
+  }
+
+  .section-padding {
+    @apply px-8 py-24;
+  }
+
+  .section-padding-sm {
+    @apply px-8 py-16 md:py-24;
+  }
+
+  .container-phoenix {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .hero-title {
+    @apply text-[44px] font-bold leading-[0.98] text-white md:text-[72px];
+  }
+
+  .section-title {
+    @apply text-[32px] font-bold leading-tight text-white md:text-[40px];
+  }
+
+  .card-title {
+    @apply text-2xl font-semibold leading-tight text-white;
+  }
+
+  .phoenix-table-wrap {
+    @apply overflow-hidden rounded-[20px];
+    background: rgba(11, 11, 13, 0.86);
+    border: 1px solid var(--phoenix-border);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-glow-pulse {
+    animation: glowPulse 2.8s ease-in-out infinite;
+  }
+
+  .animate-float,
+  .animate-float-slow {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .stagger-1 { animation-delay: 0.08s; opacity: 0; }
+  .stagger-2 { animation-delay: 0.16s; opacity: 0; }
+  .stagger-3 { animation-delay: 0.24s; opacity: 0; }
+  .stagger-4 { animation-delay: 0.32s; opacity: 0; }
+  .stagger-5 { animation-delay: 0.40s; opacity: 0; }
+  .stagger-6 { animation-delay: 0.48s; opacity: 0; }
+
+  .rounded-3xl {
+    border-radius: 20px;
+  }
+
+  .scrollbar-phoenix::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-phoenix::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 3px;
+  }
+
+  .scrollbar-phoenix::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #FF6A00, #CC4F00);
+    border-radius: 3px;
+  }
+
+  .scrollbar-phoenix::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #FF8A33, #FF6A00);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .dashboard-bg {
+    background:
+      radial-gradient(circle at top left, rgba(255, 106, 0, 0.15), transparent 35%),
+      radial-gradient(circle at bottom right, rgba(255, 80, 0, 0.08), transparent 30%),
+      linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+      #050505;
+    background-size: 100% 100%, 100% 100%, 56px 56px, 56px 56px, 100% 100%;
+    background-attachment: fixed;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 18px rgba(255, 106, 0, 0.22), 0 0 42px rgba(204, 79, 0, 0.12);
+    }
+    50% {
+      box-shadow: 0 0 32px rgba(255, 106, 0, 0.36), 0 0 70px rgba(255, 138, 51, 0.18);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes phoenixParticles {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 180px 180px, -240px 240px, 320px -320px; }
+  }
+
+  @keyframes phoenixSmoke {
+    from {
+      transform: translate3d(-1%, -1%, 0) scale(1);
+      opacity: 0.26;
+    }
+    to {
+      transform: translate3d(1%, 1%, 0) scale(1.04);
+      opacity: 0.38;
+    }
+  }
+}

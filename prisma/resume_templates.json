@@ -1,0 +1,178 @@
+[
+  {
+    "id": "modern_professional_resume_template_9075",
+    "name": "Modern Professional Resume Template",
+    "category": "developer",
+    "atsScore": 90,
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-19",
+    "desc": "Custom uploaded template.",
+    "downloads": 0,
+    "created": "2026-07-19",
+    "color": "from-zinc-900 to-zinc-950",
+    "resumeService": "Software Developer Resume",
+    "packages": [
+      "Starter"
+    ],
+    "previewImage": null,
+    "sourceTemplate": null,
+    "samplePdf": null,
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "modern_professional_resume_template_9822",
+    "name": "Modern Professional Resume Template",
+    "category": "developer",
+    "atsScore": 90,
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-19",
+    "desc": "Custom uploaded template.",
+    "downloads": 0,
+    "created": "2026-07-19",
+    "color": "from-zinc-900 to-zinc-950",
+    "resumeService": "Software Developer Resume",
+    "packages": [
+      "Starter"
+    ],
+    "previewImage": null,
+    "sourceTemplate": "/uploads/1784459130564_Modern_Professional_Resume_Template_node_modules_next_dist_bundle-analyzer_index.html",
+    "samplePdf": null,
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "minimal_ats_resume_template_5692",
+    "name": "Minimal ATS resume template",
+    "category": "developer",
+    "atsScore": 90,
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-17",
+    "desc": "Custom uploaded template.",
+    "downloads": 0,
+    "created": "2026-07-17",
+    "color": "from-zinc-900 to-zinc-950",
+    "resumeService": "Software Developer Resume",
+    "packages": [
+      "Starter"
+    ],
+    "previewImage": null,
+    "sourceTemplate": null,
+    "samplePdf": null,
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "elegant-modern-resume_template",
+    "name": "Elegant Modern Resume template",
+    "category": "fresher",
+    "atsScore": 90,
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-17",
+    "desc": "Custom uploaded template.",
+    "downloads": 0,
+    "created": "2026-07-17",
+    "color": "from-zinc-900 to-zinc-950",
+    "resumeService": "Software Developer Resume",
+    "packages": [
+      "Starter"
+    ],
+    "previewImage": null,
+    "sourceTemplate": "/uploads/1784263614094_elegant-modern-resume_template/index.html",
+    "samplePdf": null,
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "tpl-modern-minimalist",
+    "name": "Modern Minimalist",
+    "category": "ATS",
+    "atsScore": 95,
+    "pricing": "Free",
+    "status": "Active",
+    "visibility": "Public",
+    "updated": "2026-07-12",
+    "desc": "A clean, print-friendly template optimized for professional screening engines.",
+    "downloads": 1240,
+    "created": "2026-07-01",
+    "color": "from-zinc-900 to-zinc-950",
+    "resumeService": "ATS Resume",
+    "packages": [
+      "Starter",
+      "Professional"
+    ],
+    "previewImage": null,
+    "sourceTemplate": "/templates/modern_minimalist.html",
+    "samplePdf": "/uploads/modern_minimalist_sample.pdf",
+    "features": [
+      "ATS Optimized",
+      "Single Page Grid",
+      "Standard Fonts"
+    ]
+  },
+  {
+    "id": "tpl-aurora-glow",
+    "name": "Aurora Glow",
+    "category": "Designer",
+    "atsScore": 88,
+    "pricing": "Premium",
+    "status": "Active",
+    "visibility": "Public",
+    "updated": "2026-07-11",
+    "desc": "Vibrant accent colors with modern sidebar layout for creatives.",
+    "downloads": 850,
+    "created": "2026-07-03",
+    "color": "from-purple-900 to-zinc-950",
+    "resumeService": "UI/UX Resume",
+    "packages": [
+      "Professional",
+      "Enterprise"
+    ],
+    "previewImage": null,
+    "sourceTemplate": "/templates/aurora_glow.html",
+    "samplePdf": "/uploads/aurora_glow_sample.pdf",
+    "features": [
+      "Modern Sidebar",
+      "Skill Meters",
+      "Vibrant Gradients"
+    ]
+  },
+  {
+    "id": "tpl-corporate-slate",
+    "name": "Corporate Slate",
+    "category": "Executive",
+    "atsScore": 92,
+    "pricing": "Premium",
+    "status": "Active",
+    "visibility": "Public",
+    "updated": "2026-07-10",
+    "desc": "Classic dual column design tailored for senior leaders and managers.",
+    "downloads": 640,
+    "created": "2026-07-05",
+    "color": "from-slate-900 to-zinc-950",
+    "resumeService": "Executive Resume",
+    "packages": [
+      "Enterprise"
+    ],
+    "previewImage": null,
+    "sourceTemplate": "/templates/corporate_slate.html",
+    "samplePdf": "/uploads/corporate_slate_sample.pdf",
+    "features": [
+      "Dual Column Structure",
+      "Milestone Timeline",
+      "Executive Tone"
+    ]
+  }
+]

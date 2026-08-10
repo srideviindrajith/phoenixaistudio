@@ -1,0 +1,118 @@
+[
+  {
+    "id": "fresher_professional_2398",
+    "name": "Fresher Professional",
+    "industry": "Technology",
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-19",
+    "desc": "Custom uploaded portfolio template.",
+    "views": 0,
+    "created": "2026-07-19",
+    "color": "from-orange-600 to-zinc-950",
+    "portfolioService": "Developer Portfolio",
+    "packages": [
+      "Starter"
+    ],
+    "thumbnail": "/uploads/1784457783756_fresher_professional_2398_thumbnail.png",
+    "sourceTemplate": "/uploads/1784457783080_Fresher_Professional_index.html",
+    "livePreviews": [
+      "Hero",
+      "Projects",
+      "Skills"
+    ],
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "fresher_resume_portfolio_9575",
+    "name": "Fresher Resume Portfolio",
+    "industry": "Technology",
+    "pricing": "Free",
+    "status": "Draft",
+    "visibility": "Public",
+    "updated": "2026-07-17",
+    "desc": "Custom uploaded portfolio template.",
+    "views": 0,
+    "created": "2026-07-17",
+    "color": "from-orange-600 to-zinc-950",
+    "portfolioService": "Developer Portfolio",
+    "packages": [
+      "Starter"
+    ],
+    "thumbnail": "/uploads/1784301770470_fresher_resume_portfolio_9575_thumbnail.png",
+    "sourceTemplate": "/uploads/1784301769848_Fresher_Resume_Portfolio_index.html",
+    "livePreviews": [
+      "Hero",
+      "Projects",
+      "Skills"
+    ],
+    "features": [
+      "Custom Layout"
+    ]
+  },
+  {
+    "id": "tpl-glassmorphic-grid",
+    "name": "Glassmorphic Grid",
+    "industry": "Technology",
+    "pricing": "Free",
+    "status": "Active",
+    "visibility": "Public",
+    "updated": "2026-07-12",
+    "desc": "Next-gen glassmorphic layout with custom interactive project cards.",
+    "views": 2400,
+    "created": "2026-07-01",
+    "color": "from-orange-600 to-zinc-950",
+    "portfolioService": "Developer Portfolio",
+    "packages": [
+      "Starter",
+      "Professional"
+    ],
+    "thumbnail": null,
+    "sourceTemplate": "/templates/glassmorphic_grid.html",
+    "livePreviews": [
+      "Hero",
+      "Projects",
+      "Skills",
+      "Contact"
+    ],
+    "features": [
+      "Glassmorphism",
+      "Micro-Animations",
+      "Project Carousel"
+    ]
+  },
+  {
+    "id": "tpl-neon-cyber",
+    "name": "Neon Cyber",
+    "industry": "Creative",
+    "pricing": "Premium",
+    "status": "Active",
+    "visibility": "Public",
+    "updated": "2026-07-11",
+    "desc": "Vibrant orange cyber-grid style theme for digital artists and gamers.",
+    "views": 1850,
+    "created": "2026-07-03",
+    "color": "from-amber-600 to-zinc-950",
+    "portfolioService": "Creative Portfolio",
+    "packages": [
+      "Professional",
+      "Enterprise"
+    ],
+    "thumbnail": null,
+    "sourceTemplate": "/templates/neon_cyber.html",
+    "livePreviews": [
+      "Hero",
+      "Showcase Grid",
+      "About Me",
+      "Console Terminal"
+    ],
+    "features": [
+      "Custom Cyber Grid",
+      "Framer Motion Animates",
+      "Behance Feed Integrated"
+    ]
+  }
+]

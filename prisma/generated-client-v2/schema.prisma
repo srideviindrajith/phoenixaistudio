@@ -1,0 +1,600 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated-client-v2"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  service   String?
+  budget    String?
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("unread")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Package {
+  id                 String    @id @default(cuid())
+  name               String
+  description        String
+  category           String    @default("AI Agent")
+  price              Float
+  features           String
+  launchUrl          String?
+  demoUrl            String?
+  documentationUrl   String?
+  buttonText         String    @default("Contact Sales")
+  buttonUrl          String?
+  billingCycle       String    @default("month")
+  currency           String    @default("₹")
+  popular            Boolean   @default(false)
+  featured           Boolean   @default(false)
+  visibility         String    @default("Public")
+  status             String    @default("Active")
+  tags               String?
+  shortDescription   String?
+  longDescription    String?
+  buttonColor        String?
+  gradient           String?
+  buttonIcon         String?
+  buttonAction       String    @default("Contact")
+  order              Int       @default(0)
+  offerEnabled       Boolean   @default(false)
+  offerLabel         String?
+  customOfferLabel   String?
+  originalPrice      Float?
+  offerPrice         Float?
+  offerStartDate     DateTime?
+  offerEndDate       DateTime?
+  discountPercentage Float?
+  offerMetadata      String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  agents             AiAgent[]
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  category     String
+  image        String?
+  client       String?
+  technologies String?
+  link         String?
+  featured     Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  company   String?
+  content   String
+  rating    Int      @default(5)
+  image     String?
+  approved  Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id            String   @id @default(cuid())
+  siteName      String   @default("PhoenixAI Studio")
+  logo_url      String?
+  instagram_id  String?
+  key           String   @unique
+  value         String?
+  type          String?
+  adminEnabled  Boolean  @default(true)
+  publicEnabled Boolean  @default(true)
+  status        String   @default("enabled")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   @default("info")
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AiAgent {
+  id                String   @id @default(cuid())
+  name              String
+  description       String
+  longDescription   String?
+  image             String?
+  price             Float
+  features          String
+  category          String
+  agentType         String?
+  tags              String?
+  status            Boolean  @default(true)
+  isPublic          Boolean  @default(false)
+  packageId         String?
+  aiInstructions    String?
+  businessKnowledge String?
+  systemPrompt      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  package           Package? @relation(fields: [packageId], references: [id])
+
+  @@index([packageId], map: "ai_agents_packageId_fkey")
+  @@map("ai_agents")
+}
+
+model DemoModel {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  image       String?
+  liveUrl     String?
+  category    String
+  status      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("demo_models")
+}
+
+model CoreSystem {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String
+  image       String?
+  slug        String?  @unique
+  launchUrl   String?
+  devUrl      String?
+  prodUrl     String?
+  version     String?
+  environment String?
+  icon        String?
+  banner      String?
+  status      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("core_systems")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model CareerBuilderSettings {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  @@map("career_builder_settings")
+}
+
+model ResumeTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   @default("resume")
+  htmlContent String
+  cssContent  String?
+  thumbnail   String?
+  status      String   @default("draft")
+  theme       String?
+  prompt      String?
+  tags        String?
+  metadata    String?
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("resume_templates")
+}
+
+model PortfolioTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   @default("portfolio")
+  htmlContent String
+  cssContent  String?
+  thumbnail   String?
+  status      String   @default("draft")
+  theme       String?
+  prompt      String?
+  tags        String?
+  metadata    String?
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("portfolio_templates")
+}
+
+model CoverLetterTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   @default("cover-letter")
+  htmlContent String
+  cssContent  String?
+  thumbnail   String?
+  status      String   @default("draft")
+  theme       String?
+  prompt      String?
+  tags        String?
+  metadata    String?
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("cover_letter_templates")
+}
+
+model CoverLetterService {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  @@map("cover_letter_services")
+}
+
+model CareerOrder {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  @@map("career_orders")
+}
+
+model CareerDownload {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  @@map("career_downloads")
+}
+
+model SalonCustomer {
+  id           String             @id @default(cuid())
+  name         String
+  email        String             @unique
+  phone        String
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  appointments SalonAppointment[]
+
+  @@map("salon_customers")
+}
+
+model SalonAppointment {
+  id           String        @id @default(cuid())
+  customerId   String
+  serviceId    String
+  date         DateTime
+  time         String
+  stylist      String?
+  specialNotes String?
+  status       String        @default("confirmed")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  customer     SalonCustomer @relation(fields: [customerId], references: [id])
+  service      SalonService  @relation(fields: [serviceId], references: [id])
+
+  @@index([customerId], map: "salon_appointments_customerId_fkey")
+  @@index([serviceId], map: "salon_appointments_serviceId_fkey")
+  @@map("salon_appointments")
+}
+
+model SalonService {
+  id           String             @id @default(cuid())
+  name         String
+  description  String?
+  price        Float
+  duration     Int                @default(30)
+  category     String?
+  image        String?
+  status       Boolean            @default(true)
+  order        Int                @default(0)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  appointments SalonAppointment[]
+
+  @@map("salon_services")
+}
+
+model SalonSettings {
+  id                 String   @id @default(cuid())
+  businessName       String   @default("Salon Booking AI")
+  logo               String?
+  whatsappNumber     String?
+  email              String?
+  address            String?
+  openingHours       String?
+  location           String?
+  parkingInfo        String?
+  paymentMethods     String?
+  cancellationPolicy String?
+  offers             String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("salon_settings")
+}
+
+model AtsReview {
+  id                String                @id @default(cuid())
+  reviewId          String                @unique
+  candidate         String
+  assignedReviewer  String
+  status            String
+  priority          String
+  reviewDate        String
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+  activityLogs      AtsActivityLog[]
+  diagnostics       AtsDiagnostic[]
+  formattingIssues  AtsFormattingIssue[]
+  grammarIssues     AtsGrammarIssue[]
+  keywords          AtsKeyword[]
+  notes             AtsNote[]
+  scores            AtsScore[]
+  sectionInspectors AtsSectionInspector[]
+  suggestions       AtsSuggestion[]
+  timeline          AtsTimeline[]
+  versions          AtsVersion[]
+  workflowSteps     AtsWorkflowStep[]
+
+  @@map("ats_reviews")
+}
+
+model AtsScore {
+  id               String    @id @default(cuid())
+  reviewId         String
+  metric           String
+  value            Int
+  trend            String
+  explanation      String
+  calculation      String
+  problems         String
+  suggestions      String
+  progress         Int
+  aiRecommendation String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  review           AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_scores_reviewId_fkey")
+  @@map("ats_scores")
+}
+
+model AtsKeyword {
+  id         String    @id @default(cuid())
+  reviewId   String
+  word       String
+  category   String
+  importance String
+  suggestion String?
+  createdAt  DateTime  @default(now())
+  review     AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_keywords_reviewId_fkey")
+  @@map("ats_keywords")
+}
+
+model AtsDiagnostic {
+  id          String    @id @default(cuid())
+  reviewId    String
+  type        String
+  severity    String
+  title       String
+  description String
+  suggestion  String
+  expanded    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  review      AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_diagnostics_reviewId_fkey")
+  @@map("ats_diagnostics")
+}
+
+model AtsTimeline {
+  id          String    @id @default(cuid())
+  reviewId    String
+  type        String
+  description String
+  timestamp   String
+  user        String
+  createdAt   DateTime  @default(now())
+  review      AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_timeline_reviewId_fkey")
+  @@map("ats_timeline")
+}
+
+model AtsNote {
+  id        String    @id @default(cuid())
+  reviewId  String
+  type      String
+  content   String
+  author    String
+  timestamp String
+  createdAt DateTime  @default(now())
+  review    AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_notes_reviewId_fkey")
+  @@map("ats_notes")
+}
+
+model AtsSuggestion {
+  id            String    @id @default(cuid())
+  reviewId      String
+  priority      String
+  title         String
+  description   String
+  estimatedGain Int
+  difficulty    String
+  impact        String
+  status        String    @default("pending")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  review        AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_suggestions_reviewId_fkey")
+  @@map("ats_suggestions")
+}
+
+model AtsVersion {
+  id        String    @id @default(cuid())
+  reviewId  String
+  date      String
+  resume    String
+  score     Int
+  status    String
+  staff     String
+  createdAt DateTime  @default(now())
+  review    AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_versions_reviewId_fkey")
+  @@map("ats_versions")
+}
+
+model AtsActivityLog {
+  id          String    @id @default(cuid())
+  reviewId    String
+  type        String
+  description String
+  timestamp   String
+  user        String
+  createdAt   DateTime  @default(now())
+  review      AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_activity_logs_reviewId_fkey")
+  @@map("ats_activity_logs")
+}
+
+model AtsWorkflowStep {
+  id        String    @id @default(cuid())
+  reviewId  String
+  stepId    String
+  label     String
+  status    String
+  user      String
+  time      String
+  details   String
+  createdAt DateTime  @default(now())
+  review    AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_workflow_steps_reviewId_fkey")
+  @@map("ats_workflow_steps")
+}
+
+model AtsSectionInspector {
+  id        String    @id @default(cuid())
+  reviewId  String
+  name      String
+  content   String
+  score     Int
+  issues    Int
+  expanded  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  review    AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_section_inspectors_reviewId_fkey")
+  @@map("ats_section_inspectors")
+}
+
+model AtsFormattingIssue {
+  id          String    @id @default(cuid())
+  reviewId    String
+  type        String
+  severity    String
+  description String
+  location    String
+  createdAt   DateTime  @default(now())
+  review      AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_formatting_issues_reviewId_fkey")
+  @@map("ats_formatting_issues")
+}
+
+model AtsGrammarIssue {
+  id               String    @id @default(cuid())
+  reviewId         String
+  type             String
+  text             String
+  suggestion       String
+  aiRecommendation String
+  createdAt        DateTime  @default(now())
+  review           AtsReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([reviewId], map: "ats_grammar_issues_reviewId_fkey")
+  @@map("ats_grammar_issues")
+}
+
+model Service {
+  id                 String   @id @default(cuid())
+  name               String
+  slug               String?  @unique
+  category           String
+  tagline            String?
+  description        String
+  features           String
+  benefits           String?
+  technologies       String?
+  ctaButtonText      String?
+  ctaLink            String?
+  icon               String?
+  gradient           String?
+  accentColor        String?
+  thumbnail          String?
+  coverImage         String?
+  backgroundGradient String?
+  status             String   @default("draft")
+  visibility         String   @default("private")
+  featured           Boolean  @default(false)
+  order              Int      @default(0)
+  badge              String?
+  seoTitle           String?
+  seoDescription     String?
+  seoKeywords        String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("services")
+}

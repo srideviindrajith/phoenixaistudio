@@ -1,0 +1,113 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Company {
+  id           String        @id @default(uuid())
+  name         String
+  slug         String        @unique
+  logoUrl      String?
+  country      String
+  timezone     String        @default("UTC")
+  currency     String        @default("USD")
+  industry     String?
+  enabledCores String[]      // Array of enabled cores
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  users        User[]
+  licenses     License[]
+  subscriptions Subscription[]
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  description String?
+  permissions Permission[]
+  users       User[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique // e.g. "CREATE_USER", "MANAGE_LICENSES", "VIEW_REPORTS"
+  description String?
+  roles       Role[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id                 String               @id @default(uuid())
+  email              String               @unique
+  password           String
+  name               String
+  phone              String?
+  status             String               @default("PENDING_VERIFICATION") // "ACTIVE", "PENDING_VERIFICATION", "SUSPENDED"
+  photoUrl           String?
+  language           String               @default("en")
+  timezone           String               @default("UTC")
+  emailNotifications Boolean              @default(true)
+  securityAlerts     Boolean              @default(true)
+  twoFactorEnabled   Boolean              @default(false)
+  companyId          String?
+  company            Company?             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  roleId             String
+  role               Role                 @relation(fields: [roleId], references: [id])
+  sessions           Session[]
+  auditLogs          AuditLog[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+}
+
+model Session {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String   @unique
+  deviceType String   // "Desktop" | "Mobile" | "Tablet"
+  deviceName String
+  ipAddress  String
+  lastActive DateTime @default(now())
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action     String   // e.g. "USER_LOGIN", "UPDATE_ROLE", "LAUNCH_PRODUCT"
+  ipAddress  String
+  userAgent  String
+  location   String?
+  createdAt  DateTime @default(now())
+}
+
+model License {
+  id         String   @id @default(uuid())
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  key        String   @unique
+  status     String   @default("ACTIVE") // "ACTIVE" | "EXPIRED" | "REVOKED"
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+}
+
+model Subscription {
+  id          String    @id @default(uuid())
+  companyId   String
+  company     Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  plan        String    // "Trial", "Growth", "Enterprise"
+  status      String    @default("ACTIVE")
+  trialEndsAt DateTime?
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

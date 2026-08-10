@@ -1,0 +1,107 @@
+[
+  {
+    "id": "svc-basic-review",
+    "title": "Basic Cover Letter Review",
+    "category": "Review",
+    "package": "Starter",
+    "price": "₹999",
+    "discount": "10%",
+    "delivery": "3 Business Days",
+    "revisions": "2 Rounds",
+    "support": "Email Support",
+    "status": "Active",
+    "visibility": "Public",
+    "featured": false,
+    "popular": false,
+    "desc": "Professional review of your existing cover letter with actionable line-by-line feedback.",
+    "features": [
+      "Grammar & Syntax Check",
+      "Tone & Impact Assessment",
+      "Formatting Alignment"
+    ],
+    "deliverables": [
+      "Annotated PDF with comments",
+      "1-page PDF feedback summary report"
+    ],
+    "faqs": [
+      {
+        "q": "What do I need to submit?",
+        "a": "You need to submit your current resume, existing cover letter, and a link to the job description you are targeting."
+      },
+      {
+        "q": "Can you rewrite it for me?",
+        "a": "This service is for review and feedback only. For a complete rewrite, please select our Professional or Executive options."
+      }
+    ],
+    "requirements": [
+      "Target Job Description link or text",
+      "Current resume in DOCX or PDF format",
+      "Draft cover letter to be reviewed"
+    ],
+    "instructions": [
+      "Upload all files in the requirement submission form post-purchase.",
+      "Highlight any specific areas of concern you'd like the reviewer to focus on."
+    ],
+    "addons": [
+      {
+        "title": "Extra Fast 24h Delivery",
+        "price": "₹499"
+      }
+    ]
+  },
+  {
+    "id": "svc-professional-writing",
+    "title": "Professional Cover Letter Writing",
+    "category": "Writing",
+    "package": "Professional",
+    "price": "₹1,999",
+    "discount": "15%",
+    "delivery": "2 Business Days",
+    "revisions": "Unlimited for 14 Days",
+    "support": "24/7 Priority Support",
+    "status": "Active",
+    "visibility": "Public",
+    "featured": true,
+    "popular": true,
+    "desc": "Custom-written cover letter tailored to your target role and industry to maximize interview chances.",
+    "features": [
+      "ATS Keyword Optimization",
+      "Custom Value Proposition",
+      "Industry-specific phrasing",
+      "Editable Source Files included"
+    ],
+    "deliverables": [
+      "1 Custom Cover Letter (DOCX format)",
+      "1 PDF ready-to-print version",
+      "Keyword Optimization report"
+    ],
+    "faqs": [
+      {
+        "q": "Is this cover letter editable?",
+        "a": "Yes, we provide the final deliverable in fully editable Microsoft Word (.docx) format."
+      },
+      {
+        "q": "Is the cover letter ATS friendly?",
+        "a": "Yes, we integrate key terms from your targeted job listing so it passes automated applicant tracking scanners."
+      }
+    ],
+    "requirements": [
+      "Target Job Description link or text",
+      "Current resume or detailed list of work accomplishments"
+    ],
+    "instructions": [
+      "Ensure your resume is updated and reflects your most recent role before uploading.",
+      "Submit the specific job posting URL so our writers can match the job requirements precisely."
+    ],
+    "addons": [
+      {
+        "title": "LinkedIn Profile Summary Copy",
+        "price": "₹699"
+      },
+      {
+        "title": "Extra Fast 24h Delivery",
+        "price": "₹599"
+      }
+    ]
+  }
+]

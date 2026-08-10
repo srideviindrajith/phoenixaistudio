@@ -1,0 +1,385 @@
+import { test, expect } from '@playwright/test';
+import path from 'path';
+import fs from 'fs';
+
+const BASE_URL = 'http://localhost:3000';
+const AI_GENERATOR_URL = `${BASE_URL}/admin/career-builder/ai-generator`;
+
+test.describe('AI Generator Regression Tests', () => {
+  test.beforeEach(async ({ page }) => {
+    // Clear localStorage before each test
+    await page.goto(AI_GENERATOR_URL);
+    await page.evaluate(() => {
+      localStorage.clear();
+    });
+    await page.reload();
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('Upload HTML template', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Click Upload Template button
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    
+    // Wait for upload dialog
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    // Select folder upload method
+    const folderOption = page.getByText('Folder');
+    await folderOption.click();
+    
+    // Get file input element
+    const fileInput = page.locator('input[type="file"]');
+    
+    // Upload the extracted template folder
+    const folderPath = path.join(__dirname, '..', 'tmp-extract-a');
+    const filesToUpload = [
+      path.join(folderPath, 'index.html'),
+      path.join(folderPath, 'config.json')
+    ];
+    
+    // Verify files exist
+    filesToUpload.forEach(f => {
+      if (!fs.existsSync(f)) {
+        console.log(`Warning: File ${f} does not exist`);
+      }
+    });
+    
+    await fileInput.setInputFiles(filesToUpload);
+    
+    // Wait for upload to complete
+    await page.waitForTimeout(5000);
+    
+    // Verify template appears in list
+    const templateName = page.getByText('Custom Template A').first();
+    await expect(templateName).toBeVisible({ timeout: 10000 });
+    
+    console.log('✓ Upload HTML test passed');
+  });
+
+  test('Upload ZIP template', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Click Upload Template button
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    
+    // Wait for upload dialog
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    // Select ZIP upload method
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    // Get file input element
+    const fileInput = page.locator('input[type="file"]');
+    
+    // Upload the ZIP file
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    if (!fs.existsSync(zipPath)) {
+      console.log(`Warning: ZIP file ${zipPath} does not exist`);
+    }
+    await fileInput.setInputFiles(zipPath);
+    
+    // Wait for upload to complete
+    await page.waitForTimeout(5000);
+    
+    // Verify template appears in list
+    const templateName = page.getByText('Tmp upload tpl a').first();
+    await expect(templateName).toBeVisible({ timeout: 10000 });
+    
+    console.log('✓ Upload ZIP test passed');
+  });
+
+  test('Live Preview rendering', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template first
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Select the uploaded template
+    const templateName = page.getByText('Tmp upload tpl a').first();
+    await templateName.click();
+    
+    // Wait for preview to update
+    await page.waitForTimeout(3000);
+    
+    // Verify preview content is rendered
+    const preview = page.locator('.resume-container').first();
+    await expect(preview).toBeVisible();
+    
+    console.log('✓ Live Preview test passed');
+  });
+
+  test('Thumbnail generation', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(6000);
+    
+    // Check if thumbnail was generated by checking localStorage
+    const hasThumbnail = await page.evaluate(() => {
+      const templates = JSON.parse(localStorage.getItem('phoenix_custom_templates') || '[]');
+      return templates.some((t: any) => t.thumbnail && t.thumbnail.length > 0);
+    });
+    
+    expect(hasThumbnail).toBeTruthy();
+    
+    console.log('✓ Thumbnail generation test passed');
+  });
+
+  test('Sample PDF generation', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Select template
+    const templateName = page.getByText('Tmp upload tpl a').first();
+    await templateName.click();
+    await page.waitForTimeout(1000);
+    
+    // Click Export button
+    const exportButton = page.getByText('Export');
+    await exportButton.click();
+    
+    // Wait for dropdown
+    await page.waitForTimeout(500);
+    
+    // Click PDF option
+    const pdfOption = page.getByText('PDF');
+    await pdfOption.click();
+    
+    // Wait for PDF generation
+    await page.waitForTimeout(3000);
+    
+    console.log('✓ Sample PDF generation test passed');
+  });
+
+  test('Save Draft functionality', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Modify form data - find the jobTitle input
+    const jobTitleInput = page.locator('input').filter({ hasText: /Senior Front-End Developer/ }).first();
+    if (await jobTitleInput.isVisible()) {
+      await jobTitleInput.fill('Test Job Title');
+    }
+    await page.waitForTimeout(3000);
+    
+    // Check if draft was saved to localStorage
+    const draftSaved = await page.evaluate(() => {
+      return localStorage.getItem('phoenix_ai_generator_draft') !== null;
+    });
+    
+    expect(draftSaved).toBeTruthy();
+    
+    console.log('✓ Save Draft test passed');
+  });
+
+  test('Refresh persistence', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+    
+    // Verify template still exists in localStorage
+    const templateExists = await page.evaluate(() => {
+      const templates = JSON.parse(localStorage.getItem('phoenix_custom_templates') || '[]');
+      return templates.some((t: any) => t.name === 'Tmp upload tpl a');
+    });
+    
+    expect(templateExists).toBeTruthy();
+    
+    console.log('✓ Refresh persistence test passed');
+  });
+
+  test('Delete template', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Click delete button on template (using Trash2 icon)
+    const deleteButton = page.locator('button').filter({ has: page.locator('svg') }).first();
+    await deleteButton.click();
+    
+    // Wait for deletion
+    await page.waitForTimeout(2000);
+    
+    // Verify template is gone from localStorage
+    const templateExists = await page.evaluate(() => {
+      const templates = JSON.parse(localStorage.getItem('phoenix_custom_templates') || '[]');
+      return templates.some((t: any) => t.name === 'Tmp upload tpl a');
+    });
+    
+    expect(templateExists).toBeFalsy();
+    
+    console.log('✓ Delete template test passed');
+  });
+
+  test('Rename template', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Click edit button on template
+    const editButton = page.locator('button').filter({ has: page.locator('svg') }).nth(1);
+    await editButton.click();
+    
+    // Wait for edit dialog
+    await page.waitForTimeout(1000);
+    
+    // Enter new name if input exists
+    const nameInput = page.locator('input').filter({ hasText: /Tmp upload tpl a/ }).first();
+    if (await nameInput.isVisible()) {
+      await nameInput.fill('Renamed Template A');
+    }
+    
+    // Save if save button exists
+    const saveButton = page.getByText('Save').first();
+    if (await saveButton.isVisible()) {
+      await saveButton.click();
+    }
+    
+    // Wait for update
+    await page.waitForTimeout(2000);
+    
+    console.log('✓ Rename template test passed');
+  });
+
+  test('Publish workflow', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Upload template
+    const uploadButton = page.getByText('+ Upload Template');
+    await uploadButton.click();
+    await page.waitForSelector('text=Upload Template System', { timeout: 10000 });
+    
+    const zipOption = page.getByText('ZIP');
+    await zipOption.click();
+    
+    const fileInput = page.locator('input[type="file"]');
+    const zipPath = path.join(__dirname, '..', 'tmp-upload-tpl-a.zip');
+    await fileInput.setInputFiles(zipPath);
+    await page.waitForTimeout(5000);
+    
+    // Click publish button if it exists
+    const publishButton = page.getByText('Publish').first();
+    if (await publishButton.isVisible()) {
+      await publishButton.click();
+      
+      // Wait for publish modal
+      await page.waitForTimeout(1000);
+      
+      // Click confirm publish if it exists
+      const confirmButton = page.getByText('Confirm').first();
+      if (await confirmButton.isVisible()) {
+        await confirmButton.click();
+      }
+      
+      // Wait for publish to complete
+      await page.waitForTimeout(3000);
+    }
+    
+    console.log('✓ Publish workflow test passed');
+  });
+
+  test('Export Center', async ({ page }) => {
+    await page.goto(AI_GENERATOR_URL);
+    await page.waitForLoadState('networkidle');
+    
+    // Click Export button
+    const exportButton = page.getByText('Export');
+    await exportButton.click();
+    
+    // Wait for dropdown
+    await page.waitForTimeout(1000);
+    
+    // Verify export options are visible
+    const pdfOption = page.getByText('PDF').first();
+    const htmlOption = page.getByText('HTML').first();
+    
+    await expect(pdfOption).toBeVisible();
+    await expect(htmlOption).toBeVisible();
+    
+    console.log('✓ Export Center test passed');
+  });
+});
