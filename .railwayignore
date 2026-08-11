@@ -1,0 +1,16 @@
+node_modules
+.next
+.vercel
+.git
+playwright-report
+test-results
+screenshots
+tmp
+tmp-*
+temp*
+*.zip
+*.log
+dev.db
+.env
+.env.local
+.env.production

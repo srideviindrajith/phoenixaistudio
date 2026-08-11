@@ -1,7 +1,7 @@
 export const AUTH_COOKIE_NAME = 'admin_token'
 
 export function getAuthCookieOptions() {
-  const isSecure = process.env.NODE_ENV === 'production' || process.env.NEXT_PUBLIC_SITE_URL?.startsWith('https://')
+  const isSecure = process.env.NODE_ENV === 'production'
 
   return {
     httpOnly: true,
